@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<!--
+  =========================================================================
+  PARA PARIS — INSTRUCCIONES (esto no se ve en la página, es un comentario)
+  =========================================================================
+  1) FOTOS: crea una carpeta llamada "fotos" en el mismo lugar donde está
+     este archivo .html. Guarda tus fotos ahí con estos nombres exactos:
+       fotos/01.jpg  fotos/02.jpg  fotos/03.jpg ... hasta fotos/20.jpg
+     No necesitas tocar el HTML: en cuanto pongas el archivo con el nombre
+     correcto, la foto aparece sola en su espacio. Si una foto es .png o
+     .jpeg, busca en el código la línea de esa foto (busca su número, ej.
+     "01.jpg") y cambia la extensión.
+
+  2) TEXTOS: cada bloque de historia tiene una pregunta en cursiva dentro
+     de una cajita punteada (clase "prompt-text"). Búscala en el código
+     (Ctrl+F) por el número de "MOMENTO" o el título de la sección, borra
+     la pregunta y escribe tu historia en su lugar, dentro de las mismas
+     etiquetas <p>...</p>.
+
+  3) CANCIÓN: si quieres agregar el reproductor de Spotify de
+     "To Build a Home" de The Cinematic Orchestra, busca el comentario
+     "AQUÍ VA EL EMBED DE SPOTIFY" cerca del final y pega el iframe que
+     Spotify te da en Compartir > Insertar.
+
+  4) Abre el archivo haciendo doble clic — funciona en cualquier navegador,
+     necesita internet solo para cargar las tipografías bonitas.
+  =========================================================================
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo me enamoré de Elsy Samara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#1B2A4E;
+    --forest-deep:#101A33;
+    --parchment:#F4EFE6;
+    --parchment-2:#E9E1D0;
+    --radish:#B23A48;
+    --radish-deep:#8C2732;
+    --shell:#3E5C8A;
+    --gold:#6E8CB8;
+    --ink:#1C2333;
+    --cream-ink:#F6F1E6;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .serif{font-family:'Fraunces',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    opacity:.68;
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:currentColor;
+    display:inline-block;
+  }
+
+  section{position:relative; padding:7rem 6vw; }
+  @media (max-width:720px){ section{padding:4.5rem 6vw;} }
+
+  /* ---------- VINE CONNECTOR ---------- */
+  .vine-wrap{
+    display:flex; justify-content:center;
+    margin:0 auto;
+    width:100%;
+    max-width:900px;
+  }
+  .vine-wrap svg{ overflow:visible; }
+  .vine-path{
+    fill:none;
+    stroke:var(--shell);
+    stroke-width:2.5;
+    stroke-linecap:round;
+    stroke-dasharray:400;
+    stroke-dashoffset:400;
+    transition:stroke-dashoffset 1.6s cubic-bezier(.22,.9,.3,1);
+  }
+  .vine-wrap.in-view .vine-path{ stroke-dashoffset:0; }
+  .vine-leaf, .vine-spiral{
+    opacity:0;
+    transform:scale(.4);
+    transform-origin:center;
+    transition:opacity .8s ease .9s, transform .8s cubic-bezier(.34,1.56,.64,1) .9s;
+  }
+  .vine-wrap.in-view .vine-leaf,
+  .vine-wrap.in-view .vine-spiral{ opacity:1; transform:scale(1); }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .9s ease, transform .9s cubic-bezier(.22,.9,.3,1);
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  /* ================= HERO ================= */
+  .hero{
+    min-height:100svh;
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(201,154,59,.18), transparent 55%),
+      radial-gradient(ellipse at 90% 110%, rgba(212,106,120,.14), transparent 55%),
+      var(--forest);
+    color:var(--cream-ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:1.4rem;
+    padding:6rem 6vw;
+  }
+  .hero .eyebrow{ color:var(--gold); }
+  .hero h1{
+    font-size:clamp(2.3rem, 6vw, 4.6rem);
+    font-weight:600;
+    line-height:1.06;
+    max-width:16ch;
+    letter-spacing:-.01em;
+  }
+  .hero h1 em{ font-style:italic; color:var(--radish); font-weight:500; }
+  .hero .sub{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.85rem;
+    letter-spacing:.08em;
+    opacity:.75;
+  }
+  .nickname-btn{
+    background:none; border:none; cursor:pointer;
+    color:var(--radish);
+    font-family:inherit; font-style:italic;
+    text-decoration:underline;
+    text-decoration-style:dotted;
+    text-underline-offset:4px;
+    font-size:inherit;
+  }
+  .hero-sprout{ width:64px; height:auto; opacity:.9; }
+  .scroll-cue{
+    position:absolute; bottom:2.6rem; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:.5rem;
+    color:var(--cream-ink); opacity:.55;
+    font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.18em;
+  }
+  .scroll-cue svg{ animation:bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  /* ================= STORY BLOCKS ================= */
+  .story{
+    max-width:1080px; margin:0 auto;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:4.5rem;
+    align-items:center;
+  }
+  .story.flip{ direction:rtl; }
+  .story.flip > *{ direction:ltr; }
+  @media (max-width:860px){
+    .story{ grid-template-columns:1fr; gap:2.4rem; }
+    .story.flip{ direction:ltr; }
+  }
+
+  .moment-index{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem; letter-spacing:.2em; color:var(--radish-deep);
+    margin-bottom:.9rem; display:block;
+  }
+  .story h2{
+    font-size:clamp(1.6rem,3vw,2.3rem);
+    font-weight:600; margin-bottom:1.3rem; color:var(--ink);
+  }
+
+  .prompt-box{
+    border:1.5px dashed var(--shell);
+    border-radius:2px;
+    padding:1.6rem 1.8rem;
+    background:rgba(255,255,255,.28);
+    position:relative;
+  }
+  .prompt-box .prompt-text{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.14rem;
+    line-height:1.6;
+    color:var(--ink);
+    opacity:.92;
+  }
+
+  /* photo slots */
+  .photo-slot{
+    aspect-ratio:4/5;
+    border-radius:3px;
+    overflow:hidden;
+    position:relative;
+    background:
+      repeating-linear-gradient(135deg, rgba(139,106,69,.10) 0 10px, rgba(139,106,69,.04) 10px 20px),
+      var(--parchment-2);
+    box-shadow:0 18px 40px -22px rgba(30,42,30,.45);
+    transition:transform .55s cubic-bezier(.22,.9,.3,1), box-shadow .55s;
+  }
+  .photo-slot:hover{ transform:translateY(-6px) rotate(-.4deg); box-shadow:0 26px 46px -20px rgba(30,42,30,.5); }
+  .photo-slot img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .photo-slot.missing img{ display:none; }
+  .photo-slot::before{
+    content:"";
+    position:absolute; inset:0;
+    border:1px solid rgba(139,106,69,.35);
+  }
+  .photo-slot.missing::after{
+    content: "＋  foto " attr(data-num);
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--shell);
+  }
+  .photo-wide{ aspect-ratio:16/10; }
+
+  /* ================= GALERÍA ================= */
+  .gallery-section{ background:var(--forest); color:var(--cream-ink); }
+  .gallery-section .eyebrow{ color:var(--gold); }
+  .gallery-section h2{ font-size:clamp(1.8rem,3.6vw,2.7rem); font-weight:600; margin:.8rem 0 3rem; max-width:14ch; }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap:14px;
+    max-width:1200px; margin:0 auto;
+  }
+  .gallery-grid .photo-slot{ aspect-ratio:1/1; }
+  .gallery-grid .photo-slot:nth-child(5n+2){ aspect-ratio:4/5; }
+  .gallery-grid .photo-slot:nth-child(7n+4){ aspect-ratio:5/4; }
+
+  /* ================= CIERRE ================= */
+  .closing{
+    background:var(--forest-deep); color:var(--cream-ink);
+    text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:2rem;
+    padding-bottom:9rem;
+  }
+  .house-svg{ width:min(320px, 70vw); height:auto; }
+  .house-path{
+    fill:none; stroke:var(--gold); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:900; stroke-dashoffset:900;
+    transition:stroke-dashoffset 2.6s cubic-bezier(.16,.84,.24,1);
+  }
+  .closing.in-view .house-path{ stroke-dashoffset:0; }
+  .closing h2{ font-size:clamp(1.7rem,4vw,2.6rem); font-weight:600; max-width:18ch; line-height:1.24; }
+  .closing .song-credit{
+    font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.1em;
+    opacity:.6;
+  }
+  .closing .signature{ font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--radish); margin-top:.6rem; }
+
+  .prompt-box.dark{ border-color:var(--gold); background:rgba(255,255,255,.04); max-width:56ch; }
+  .prompt-box.dark .prompt-text{ color:var(--cream-ink); }
+
+  .candles-btn{
+    margin-top:1rem;
+    background:var(--radish); color:var(--cream-ink);
+    border:none; padding:.9rem 1.8rem; border-radius:40px;
+    font-family:'JetBrains Mono',monospace; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .3s ease, background .3s ease;
+  }
+  .candles-btn:hover{ transform:translateY(-3px); background:var(--radish-deep); }
+  .candles-btn:active{ transform:translateY(0); }
+
+  #confetti-layer{
+    position:fixed; inset:0; pointer-events:none; z-index:50; overflow:hidden;
+  }
+  .confetti-piece{
+    position:absolute; top:-5%;
+    width:8px; height:14px;
+    opacity:.9;
+    animation:fall linear forwards;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(540deg); opacity:.2; }
+  }
+
+  ::selection{ background:var(--radish); color:var(--cream-ink); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <span class="eyebrow">para mi caracolito</span>
+  <svg class="hero-sprout" viewBox="0 0 60 90" fill="none">
+    <path d="M30 88C30 88 30 50 30 40C30 30 20 26 20 16C20 8 26 3 30 3C34 3 40 8 40 16C40 26 30 30 30 40" stroke="#6E8CB8" stroke-width="2" stroke-linecap="round"/>
+    <path d="M30 55C30 55 18 50 14 40" stroke="#B23A48" stroke-width="2" stroke-linecap="round"/>
+    <path d="M30 68C30 68 42 63 46 53" stroke="#B23A48" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <h1>Cómo me enamoré de <em>🌟 Elsy Samara 🌟</em></h1>
+  <p class="sub">una historia que Paris Santillan sigue construyendo — feliz cumpleaños, mi
+    <button class="nickname-btn" id="nickBtn">caracolito</button>
+  </p>
+  <div class="scroll-cue">
+    <span>despliega la historia</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M1 1L7 19L13 1" stroke="currentColor" stroke-width="1.4"/></svg>
+  </div>
+</section>
+
+<!-- vine connector -->
+<div class="vine-wrap" data-vine>
+  <svg width="60" height="120" viewBox="0 0 60 120" fill="none">
+    <path class="vine-path" d="M30 0C30 20 10 25 12 45C14 65 30 65 30 90C30 100 30 110 30 120" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <g class="vine-spiral" transform="translate(6,45)">
+      <path d="M8 0C12 0 15 3 15 7C15 11 12 14 8 14C4.5 14 2 11.5 2 8.5C2 6 4 4 6.5 4C8.5 4 10 5.5 10 7.5" stroke="#3E5C8A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= EL INICIO ================= -->
+<section>
+  <div class="story reveal">
+    <div>
+      <span class="moment-index">EL INICIO</span>
+      <h2 class="serif">Así nos conocimos 💖🐌🦋</h2>
+      <div class="prompt-box">
+        <p class="prompt-text">Nos conocimos un miércoles 27 de septiembre. Aunque, para ser sincero, yo ya te había visto desde mucho antes. Desde entonces quería pedirte tu número y, como ya sabes... hasta te llegué a acosar un poquito (perdóname jajaja).
+
+Me daba muchísimo miedo acercarme porque no sabía si me lo ibas a dar. En ese entonces le tenía mucho miedo al rechazo.
+Después de unos días, recuerdo que Yareli me pidió mi  número para Azul y, supongo, también para ella. Pero la verdad es que tus ojos ya me habían enamorado desde antes. Solo estaba buscando la forma de acercarme a ti. Tarde o temprano sabía que lo iba a hacer, y ese miércoles fue el comienzo de una de las historias más bonitas de mi vida.
+Estaba tan emocionado por conocerte que empecé a buscarte preguntándoles a tus amigas. La verdad, por más que intentaban hacerme plática, mi atención siempre terminaba en la misma pregunta: "¿Dónde está la chica del cabello rizado?" Hasta que, por fin, llegué a ti.
+Ese "vámonos juntos" lo cambio todo. Dicho día estaba muy nervioso. Sé que no era una cita, pero desde ese momento supe que quería conocerte más, porque desde el primer día despertaste algo muy especial en mí. </p>
+      </div>
+    </div>
+    <div class="photo-slot missing" data-num="01">
+  <img src="fotos/01.JPG" alt="fotos 01" 
+       onload="this.closest('.photo-slot').classList.remove('missing')" 
+       onerror="this.closest('.photo-slot').classList.add('missing')">
+</div>
+  </div>
+</section>
+
+<div class="vine-wrap" data-vine>
+  <svg width="60" height="120" viewBox="0 0 60 120" fill="none">
+    <path class="vine-path" d="M30 0C30 20 48 25 46 45C44 65 30 65 30 90C30 100 30 110 30 120" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <g class="vine-leaf" transform="translate(38,42)">
+      <path d="M0 8C0 8 2 0 10 0C10 0 8 8 0 8Z" fill="#B23A48"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= MOMENTO 01 ================= -->
+<section>
+  <div class="story flip reveal">
+    <div>
+      <span class="moment-index">MOMENTO 01</span>
+      <h2 class="serif">La primera vez a solas 💖🐌🦋</h2>
+      <div class="prompt-box">
+        <p class="prompt-text">La primera vez a solas fue lo mejor, por que a pesar de no ser nada tomabas de mi mano. Cuando te pedí que me acompañaras a mi salon de programación y sucedio la magia jijiji. Te robe un beso, me arme de tanto valor, por que te juro que no sabía si despues de eso me dejarias de hablar o me tomaras como que "!wtfff somos amigos¡". Despues tuvimos nuestra pimera cita, me encanto tanto el echo de que compartieramos tantos gusto que no me sentía como el "raro" si no acompañado. Gracias por compartir todo conmigo <3  </p>
+      </div>
+    </div>
+    <div class="photo-slot missing" data-num="02">
+  <img src="fotos/02.JPG" alt="fotos 01" 
+       onload="this.closest('.photo-slot').classList.remove('missing')" 
+       onerror="this.closest('.photo-slot').classList.add('missing')">
+</div>
+  </div>
+</section>
+
+<div class="vine-wrap" data-vine>
+  <svg width="60" height="120" viewBox="0 0 60 120" fill="none">
+    <path class="vine-path" d="M30 0C30 20 10 25 12 45C14 65 30 65 30 90C30 100 30 110 30 120" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <g class="vine-leaf" transform="translate(6,42) scale(-1,1) translate(-10,0)">
+      <path d="M0 8C0 8 2 0 10 0C10 0 8 8 0 8Z" fill="#6E8CB8"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= MOMENTO 02 ================= -->
+<section>
+  <div class="story reveal">
+    <div>
+      <span class="moment-index">MOMENTO 02</span>
+      <h2 class="serif">Ese instante inolvidable 🐌❤️</h2>
+      <div class="prompt-box">
+        <p class="prompt-text">Me encantaba que me mostraras los pedazos de tus peliculas favoritas, cuando me compartias como te sentias en ese momento. Pero los mejores momentos son esos cuando agarramos intimidad, ese sentimiento tan hermoso que siento contigo es raro de explicar pero espero me entiendas es como apenas que me fui a quedar a tu casita y mientras haciamos los pancitos con mantequilla, sentí un calor tan especial, me senti tan seguro, de tan solo volver a esas noches donde pensamos en como seria vivir juntos todo una vida es hermoso. </p>
+      </div>
+    </div>
+    <div class="photo-slot missing" data-num="03">
+  <img src="fotos/03.JPG" alt="fotos 01" 
+       onload="this.closest('.photo-slot').classList.remove('missing')" 
+       onerror="this.closest('.photo-slot').classList.add('missing')">
+</div>
+  </div>
+</section>
+
+<div class="vine-wrap" data-vine>
+  <svg width="60" height="120" viewBox="0 0 60 120" fill="none">
+    <path class="vine-path" d="M30 0C30 20 48 25 46 45C44 65 30 65 30 90C30 100 30 110 30 120" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <g class="vine-leaf" transform="translate(38,42)">
+      <path d="M0 8C0 8 2 0 10 0C10 0 8 8 0 8Z" fill="#B23A48"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= MOMENTO 03 ================= -->
+<section>
+  <div class="story flip reveal">
+    <div>
+      <span class="moment-index">MOMENTO 03</span>
+      <h2 class="serif">Cuando lo supe 🐌❤️</h2>
+      <div class="prompt-box">
+        <p class="prompt-text">Supe que me enamore de ti cuando empece a dejar de hacer cosas por estar contigo, cuando a veces me salia temprano para poder verte mas tiempo, cuando aceptaste mi fomra de ser y compartiste tus gustos conmigo, cuando empece a ser yo y no ser alguien mas. Por que cuando todo estaba empezando, el corazón me empezaba a latir tan rapido estando tan cerca de ti que sentía que me iba de este mundo, mi mente en seguida empezo a hacer una vida contigo, una vida donde siempre terminamos en un altar, donde me pongo de rodillas hacía ti para pedirte que seas mi esposa <333333</p>
+      </div>
+    </div>
+   <div class="photo-slot missing" data-num="04">
+  <img src="fotos/04.JPG" alt="fotos 01" 
+       onload="this.closest('.photo-slot').classList.remove('missing')" 
+       onerror="this.closest('.photo-slot').classList.add('missing')">
+</div>
+  </div>
+</section>
+
+<div class="vine-wrap" data-vine>
+  <svg width="60" height="120" viewBox="0 0 60 120" fill="none">
+    <path class="vine-path" d="M30 0C30 24 30 30 30 45C30 60 30 66 30 90C30 100 30 110 30 120" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <g class="vine-spiral" transform="translate(24,42)">
+      <path d="M8 0C12 0 15 3 15 7C15 11 12 14 8 14C4.5 14 2 11.5 2 8.5C2 6 4 4 6.5 4C8.5 4 10 5.5 10 7.5" stroke="#3E5C8A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= LO QUE MÁS AMO ================= -->
+<section>
+  <div class="story reveal">
+    <div>
+      <span class="moment-index">HOY</span>
+      <h2 class="serif">100 cosas que más amo de ti 🐌❤️</h2>
+      <div class="prompt-box">
+        <p class="prompt-text">
+Amo tu sentido del humor y cómo siempre logras hacerme reír.
+
+Tu amabilidad infinita con las personas que te rodean.
+
+La pasión que le pones a las cosas que realmente te importan.
+
+Tu paciencia, especialmente cuando me pongo difícil.
+
+Lo inteligente que eres y lo mucho que aprendo de ti cada día.
+
+Tu capacidad para mantener la calma cuando todo parece un caos.
+
+Tu honestidad, incluso cuando la verdad es difícil de decir.
+
+Lo detallista que eres sin necesidad de que sea una fecha especial.
+
+Tu empatía y cómo te preocupas genuinamente por los demás.
+
+Tu determinación para lograr todo lo que te propones.
+
+Esa chispa de locura sana que hace que la vida contigo nunca sea aburrida.
+
+Cómo defiendes tus valores y lo que crees que es correcto.
+
+Tu curiosidad por descubrir cosas nuevas.
+
+Lo madura que eres para resolver los malentendidos.
+
+Tu lado más dulce e infantil que solo me muestras a mí.
+
+Tu capacidad para pedir perdón cuando te equivocas.
+
+Lo buen amiga que eres con la gente que quieres.
+
+Tu optimismo, incluso en los días grises.
+
+Que eres una persona auténtica y sin filtros.
+
+Me haces sentir la persona más afortunada del mundo.
+
+A tu lado siento que estoy en un lugar seguro.
+
+Me das la confianza para ser 100% yo mismo.
+
+Cómo calmas mi ansiedad con solo darme un abrazo.
+
+Me haces sentir escuchado y valorado.
+
+Tu apoyo incondicional en cada uno de mis proyectos.
+
+Cómo me miras, siento que me lees el alma.
+
+Siento que contigo puedo hablar de todo y de nada a la vez.
+
+Me inspiras a querer ser una mejor versión de mí mismo.
+
+Me haces sentir deseado y amado como nadie más.
+
+La paz que inunda mi pecho cuando te quedas dormida a mi lado.
+
+Me devuelves la calma después de un día estresante.
+
+Sabes exactamente cuándo necesito un abrazo silencioso.
+
+Me haces creer en el amor de verdad, sin juegos ni dudas.
+
+Tu confianza ciega en mis capacidades.
+
+Me haces sentir que juntos podemos con todo.
+
+El calorcito que me da en el pecho cuando recibo un mensaje tuyo.
+
+Me haces sentir que no estoy solo en este mundo.
+
+Tu forma de recordarme lo mucho que valgo cuando yo lo olvido.
+
+Que haces que los días ordinarios se sientan extraordinarios.
+
+Amo nuestras bromas internas que nadie más entiende.
+
+Esas conversaciones nocturnas que se extienden hasta la madrugada.
+
+Nuestros domingos de no hacer absolutamente nada y ser felices (cuando vienes a mi casita).
+
+La forma en que nos comunicamos con solo una mirada en público.
+
+Tu complicidad para seguirme la corriente en mis ocurrencias.
+
+El recuerdo de nuestra primera cita y los nervios tan bonitos que sentí.
+
+Cómo planeamos nuestro futuro juntos con tanta ilusión.
+
+Que ver películas contigo siempre termina en pláticas profundas.
+
+Los viajes (grandes o pequeños) que hemos compartido.
+
+Compartir la comida contigo (aunque a veces yo te robe de tu plato jijijij).
+
+Tu abrazo de bienvenida cuando nos vemos después de días separados.
+
+Cómo nos reímos de nuestras propias torpezas.
+
+El primer beso que nos dimos y cómo me cambió la vida.
+
+La forma en que cocinamos juntos (o el intento de hacerlo).
+
+Esos momentos de silencio cómodo donde no hace falta decir nada.
+
+Recordar cómo empezó todo y ver lo lejos que hemos llegado.
+
+Que cualquier plan aburrido se vuelve increíble si estás tú.
+
+Tu olor, que se queda grabado en mi ropa y en mi memoria.
+
+La forma en que me buscas con el pie para saber que estoy ahí.
+
+Cómo se arruga tu nariz cuando te ríes a carcajadas.
+
+Tus mensajes de "buenos días" y "buenas noches" que nunca faltan.
+
+La forma en que te muerdes el labio cuando estás muy concentrada7.
+
+Tu risa escandalosa (es mi sonido favorito en el mundo).
+
+Que te acuerdes de cómo me gusta comer ciertas cosas.
+
+El tono de voz tierno que usas cuando me consientes.
+
+Tu forma de caminar y cómo buscas mi mano automáticamente.
+
+Ver la pasión en tus ojos cuando me cuentas algo que te emociona.
+
+Cómo te estiras al despertar como un gatito.
+
+Tus hoyuelos o las pequeñas marcas de expresión que tienes al sonreír.
+
+El frío de tus manos que siempre buscas calentar con las mías.
+
+Que guardes papelitos, fotos o recuerdos de lo que hacemos juntos.
+
+El brillo de tus ojos cuando me ves llegar.
+
+Tu forma de tararear canciones cuando estás distraída.
+
+Los besos rápidos que me das de piquito.
+
+Que me dejes el último bocado de lo que estás comiendo.
+
+Tus ojos, porque reflejan toda la luz del mundo.
+
+Tu sonrisa, capaz de desarmarme por completo.
+
+El tacto de tu piel contra la mía.
+
+Tus manos, que encajan perfectamente con las mías.
+
+Tu cabello, me encanta acariciarlo cuando descansamos.
+
+La forma de tus labios y lo perfectos que son para besar.
+
+Tu estilo único de vestir, todo te queda bien.
+
+Tus abrazos protectores, donde me siento invencible.
+
+Tu voz, que es la banda sonora que quiero escuchar siempre.
+
+Tu fuerza física y mental para afrontar los retos.
+
+Tu forma de bailar (aunque sea dando pasitos graciosos).
+
+Que cada año que pasa te pones más hermosa.
+
+Tu esencia... esa energía que ilumina cualquier habitación en la que entras.
+
+Que eres mi hogar en forma de persona.
+
+El hecho de que seas mi mejor amiga y mi amante a la vez.
+
+Que me dejes conocer tus miedos más profundos.
+
+Tu forma de cuidar de mí cuando me siento enfermo o triste.
+
+Que compartamos los mismos valores y visión de vida.
+
+El saber que, sin importar lo que pase, siempre nos elegiremos.
+
+Que eres tú, exactamente como eres, y no te cambiaría absolutamente nada. </p>
+      </div>
+    </div>
+   <div class="photo-slot missing" data-num="05">
+  <img src="fotos/05.JPG" alt="fotos 01" 
+       onload="this.closest('.photo-slot').classList.remove('missing')" 
+       onerror="this.closest('.photo-slot').classList.add('missing')">
+</div>
+  </div>
+</section>
+
+<!-- ================= GALERÍA ================= -->
+<section class="gallery-section">
+  <span class="eyebrow">nuestros momentos</span>
+  <h2 class="serif reveal">Una galería de todo lo que hemos vivido 💫❤️🐸</h2>
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- generado por JS: fotos 06 a 20 -->
+  </div>
+</section>
+
+<!-- ================= CIERRE ================= -->
+<section class="closing" data-vine>
+  <svg class="house-svg" viewBox="0 0 200 170" fill="none">
+    <path class="house-path" d="
+      M100 8
+      C 60 8, 45 30, 40 55
+      C 36 75, 20 78, 18 95
+      C 16 112, 30 122, 45 120
+      C 55 118, 55 108, 55 100
+      L 55 150
+      L 145 150
+      L 145 100
+      C 145 108, 145 118, 155 120
+      C 170 122, 184 112, 182 95
+      C 180 78, 164 75, 160 55
+      C 155 30, 140 8, 100 8
+      Z
+      M 80 150 L 80 115 L 120 115 L 120 150
+    "/>
+  </svg>
+  <span class="eyebrow">para construir un hogar</span>
+  <h2 class="serif">Sea cual sea la casa donde estemos algún día, contigo ya empecé a construirla.</h2>
+  <div class="prompt-box dark">
+    <p class="prompt-text">Feliz cumpleaños, mi amor.
+
+Espero que hoy la pases muy bonito y que sigas cumpliendo muchos años más. Nunca olvides todo lo que te amo y todo lo que siempre te amaré.
+
+Tampoco olvides todos los momentos que hemos vivido juntos, porque cada uno de ellos, con el paso del tiempo, se convertirá en un recuerdo hermoso.
+
+Gracias por ser parte de mi vida. Te amo. ❤️
+ </p>
+  </div>
+<span class="song-credit">inspirado en "To Build a Home" — The Cinematic Orchestra</span>
+  
+  <!-- AQUÍ VA EL EMBED DE SPOTIFY (opcional): pega tu <iframe> de Spotify justo debajo de esta línea -->
+  <div style="margin: 24px auto; max-width: 320px; width: 100%;">
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3AqPL1n1wKc5DVFFnYuJhp?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+
+  <p class="signature">Con todo mi cariño, Tu novio Paris Santillan</p>
+  <button class="candles-btn" id="candlesBtn">soplar las velas 🕯️</button>
+</section>
+
+<div id="confetti-layer"></div>
+
+<script>
+  // --- Scroll reveal ---
+  const revealEls = document.querySelectorAll('.reveal, [data-vine]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); }
+    });
+  }, { threshold: 0.28 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // --- Nickname toggle ---
+  const nickBtn = document.getElementById('nickBtn');
+  const nicknames = ['caracolito','rabanito'];
+  let nickIndex = 0;
+  nickBtn.addEventListener('click', ()=>{
+    nickIndex = (nickIndex+1) % nicknames.length;
+    nickBtn.textContent = nicknames[nickIndex];
+  });
+
+  // --- Gallery generation: photos 06 to 20 ---
+  const grid = document.getElementById('galleryGrid');
+  for(let i=6; i<=20; i++){
+    const num = String(i).padStart(2,'0');
+    const slot = document.createElement('div');
+    slot.className = 'photo-slot missing';
+    slot.dataset.num = num;
+    const img = document.createElement('img');
+    img.src = `fotos/${num}.jpg`;
+    img.alt = `Foto ${num}`;
+    img.onerror = ()=> slot.classList.add('missing');
+    img.onload = ()=> slot.classList.remove('missing');
+    slot.appendChild(img);
+    grid.appendChild(slot);
+  }
+
+  // --- Confetti / velas ---
+  const colors = ['#B23A48','#6E8CB8','#3E5C8A','#F4EFE6'];
+  document.getElementById('candlesBtn').addEventListener('click', ()=>{
+    const layer = document.getElementById('confetti-layer');
+    for(let i=0;i<60;i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDuration = (2.4 + Math.random()*1.8) + 's';
+      p.style.animationDelay = (Math.random()*0.4) + 's';
+      layer.appendChild(p);
+      setTimeout(()=>p.remove(), 4600);
+    }
+  });
+</script>
+</body>
+</html>
